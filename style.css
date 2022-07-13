@@ -1,0 +1,17 @@
+html,
+body,
+.intro {
+  background-color: black;
+  color: white;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

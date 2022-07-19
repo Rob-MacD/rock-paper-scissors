@@ -1,6 +1,6 @@
 html,
 body,
-.intro {
+#intro {
   background-color: black;
   color: white;
   padding: 0;
@@ -10,16 +10,16 @@ body,
 
 div {
   display: flex;
-  /* border: 2px solid red; */
+  /* border: 1px solid red; */
   padding: 1px;
 }
 
-.master-container {
+#master-container {
   display: flex;
   flex-direction: column;
 }
 
-.intro {
+#intro {
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -27,6 +27,12 @@ div {
 }
 
 img {
+  border: 5px solid blue;
+  border-radius: 50px;
+  transition: 1s;
+}
+
+input {
   border: 5px solid red;
   border-radius: 50px;
   transition: 1s;
@@ -38,10 +44,6 @@ img {
   justify-content: center;
 }
 
-#computer-icons {
-  opacity: 0%;
-}
-
 .mouse-over {
   transition: 1s;
   opacity: 1;
@@ -49,6 +51,19 @@ img {
 
 .no-mouse-over {
   transition: 1s;
-
   opacity: 0.2;
+}
+h1 {
+  padding: 0px;
+  margin: 0px;
+}
+
+#intro-welcome,
+#intro-players,
+#intro-rules,
+#intro-weapons,
+#player-icons,
+#computer-icons {
+  transition: 1s;
+  opacity: 0%;
 }

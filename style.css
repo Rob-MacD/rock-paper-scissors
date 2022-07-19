@@ -67,3 +67,9 @@ h1 {
   transition: 1s;
   opacity: 0%;
 }
+
+#computer-rock,
+#computer-paper,
+#computer-scissors {
+  transition: 1s;
+}

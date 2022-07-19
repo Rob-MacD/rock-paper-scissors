@@ -1,7 +1,7 @@
 /* Paper Rock Scissors v1.0
  * Written by Robert MacDomnald
  * Started July 12 2022
- * Updated July 18 2022
+ * Updated July 19 2022
  *
  * Updated with UI!
  * Player Selection works (fix bug with selecting out of turn).
@@ -10,10 +10,13 @@
 
 let playerValue = 0;
 let computerValue = 0;
-let playerTurn = false;
-let images = document.querySelectorAll(".image");
+let playerScore = 0;
+let computerScore = 0;
 
-beginGame();
+do {
+  beginGame();
+  startPlayerTurn();
+} while (playerScore < 5 && computerScore < 5);
 
 function beginGame() {
   introText("intro-welcome");
@@ -29,7 +32,6 @@ function beginGame() {
   setTimeout(() => {
     document.getElementById("player-icons").style.opacity = "100%";
   }, 4000);
-  startPlayerTurn();
 }
 
 // This function will fade-in and out the text of the passed-in id.
@@ -41,40 +43,61 @@ function introText(text) {
   }, 5000);
 }
 
-function playRound() {
-  console.log("GAME PLAY");
-}
-
 function startPlayerTurn() {
-  images = document.querySelectorAll(".no-mouse-over");
-  images.forEach((image) => {
-    image.addEventListener("mouseenter", () => {
-      image.classList.toggle("mouse-over");
-      image.classList.toggle("no-mouse-over");
+  let inputs = document.querySelectorAll(".player-image");
+  inputs.forEach((input) => {
+    input.addEventListener("mouseenter", () => {
+      input.classList.toggle("mouse-over");
+      input.classList.toggle("no-mouse-over");
     });
-    image.addEventListener("mouseleave", () => {
-      image.classList.toggle("mouse-over");
-      image.classList.toggle("no-mouse-over");
+    input.addEventListener("mouseleave", () => {
+      input.classList.toggle("mouse-over");
+      input.classList.toggle("no-mouse-over");
+    });
+    input.addEventListener("click", function endPlayerTurn() {
+      playerValue = input.value;
+      selectText = document.getElementById("intro-weapons");
+      selectText.textContent = "You picked:";
+      let hideIcons = document.querySelectorAll(".no-mouse-over");
+      hideIcons.forEach((icon) => {
+        icon.style.opacity = "0%";
+      });
+      let selectedIcon = document.querySelector(".mouse-over");
+      if (selectedIcon) {
+        selectedIcon.style.opacity = "100%";
+      }
+      playerTurn = false;
+      document.getElementById("computer-icons").style.opacity = "100%";
+      setTimeout(() => {
+        startComputerTurn();
+      }, 3000);
     });
   });
 }
+function startComputerTurn() {
+  computerValue = randomInt(1, 3);
+  console.log(computerValue);
+  switch (computerValue) {
+    case 1:
+      document.getElementById("computer-paper").style.opacity = "0%";
+      document.getElementById("computer-scissors").style.opacity = "0%";
+      break;
+    case 2:
+      document.getElementById("computer-rock").style.opacity = "0%";
+      document.getElementById("computer-scissors").style.opacity = "0%";
+      break;
+    case 3:
+      document.getElementById("computer-rock").style.opacity = "0%";
+      document.getElementById("computer-paper").style.opacity = "0%";
+      break;
+    default:
+      alert("Something went wrong.");
+      break;
+  }
+}
 
-const inputs = document.querySelectorAll("input");
-inputs.forEach((input) => {
-  input.addEventListener("click", () => {
-    selectText = document.getElementById("intro-weapons");
-    selectText.textContent = "You picked:";
-    // hide unselected icons:
-    endPlayerTurn();
-    let playerIcons = document.querySelectorAll(".no-mouse-over");
-    playerIcons.forEach((icon) => {
-      console.log(icon.id);
-      icon.style.opacity = "0%";
-    });
-    document.querySelector(".mouse-over").style.opacity = "100%";
-    playerValue = input.id;
-    playerTurn = false;
-    //Bring in CPU icons:
-    document.getElementById("computer-icons").style.opacity = "100%";
-  });
-});
+function randomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}

@@ -13,12 +13,13 @@ let computerValue = 0;
 let playerScore = 0;
 let computerScore = 0;
 
-do {
-  beginGame();
-  startPlayerTurn();
-} while (playerScore < 5 && computerScore < 5);
+intro();
 
-function beginGame() {
+function intro() {
+  playerValue = 0;
+  computerValue = 0;
+  playerScore = 0;
+  computerScore = 0;
   introText("intro-welcome");
   setTimeout(() => {
     introText("intro-players");
@@ -31,6 +32,9 @@ function beginGame() {
   }, 3000);
   setTimeout(() => {
     document.getElementById("player-icons").style.opacity = "100%";
+  }, 4000);
+  setTimeout(() => {
+    startPlayerTurn();
   }, 4000);
 }
 
@@ -56,6 +60,9 @@ function startPlayerTurn() {
     });
     input.addEventListener("click", function endPlayerTurn() {
       playerValue = input.value;
+      let roundResults = document.getElementById("round-results-text");
+      roundResults.innerHTML = "Computer Selects:";
+      roundResults.style.opacity = "100%";
       selectText = document.getElementById("intro-weapons");
       selectText.textContent = "You picked:";
       let hideIcons = document.querySelectorAll(".no-mouse-over");

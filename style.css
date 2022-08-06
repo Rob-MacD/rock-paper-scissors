@@ -73,3 +73,13 @@ h1 {
 #computer-scissors {
   transition: 1s;
 }
+
+#round-results {
+  display: flex;
+  justify-content: center;
+}
+
+#round-results-text {
+  opacity: 0%;
+  transition: 1s;
+}
